@@ -1,26 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { PureComponent } from 'react';
+import { subscribeToTimer } from './api';
+
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
+class App extends PureComponent {
+
+  state = { timestamp: 'no timestamp yet' };
+
+  componentDidMount = () => {
+    subscribeToTimer((err, timestamp) => this.setState({ 
+      timestamp 
+    }));
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <p className="App-intro">
+          This is the timer value: {this.state.timestamp}
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+      </div>
+    )
+  }
 }
 
 export default App;
